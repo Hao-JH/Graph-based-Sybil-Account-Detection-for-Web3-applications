@@ -8,6 +8,8 @@ os.chdir(current_folder)
 addr_dict = pd.read_csv('addr_feat.csv')
 print(addr_dict.info())
 print(addr_dict.iloc[0])
+print(addr_dict.iloc[1])
+
 
 '''
 RangeIndex: 1476197 entries, 0 to 1476196
