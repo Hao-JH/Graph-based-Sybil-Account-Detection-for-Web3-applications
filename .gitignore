@@ -24,3 +24,5 @@ data/connext_labs_data/bsc/data_action_feat.csv
 data/connext_labs_data/data_dict1.xlsx
 data/connext_labs_data/eth/data_action_feat.csv
 data/connext_labs_data/op/data_action_feat.csv
+data/starknet_label/starknet_addr_score_label.csv
+data/starknet_label/starknet_addr_score_label_dict.xlsx

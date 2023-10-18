@@ -2,7 +2,6 @@ import torch
 import os
 from torch_geometric.nn import GATConv
 from torch_geometric.data import Data
-from model.edge_gat import Edge_GATConv
 
 
 current_folder = os.path.dirname(os.path.abspath(__file__))
