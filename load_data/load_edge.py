@@ -34,3 +34,16 @@ features = torch.tensor(features.values, dtype=torch.float)
 torch.save(features, 'edge_features.pt')
 
 print(features)
+
+
+'''
+
+
+a1a2 attention1= f(e1,a1,a2, W) = relu(a1w1 + ...+ a11w11 + a2w12+  + e5w27 )
+
+a1a3 attention2= f(e2,a1,a3, W) = 
+
+softmax e^f(e,a1,a2, W)/sigma e^f(e,a1,ai, W)
+
+attention1 * a2e1 + attention2 *a3e2
+'''

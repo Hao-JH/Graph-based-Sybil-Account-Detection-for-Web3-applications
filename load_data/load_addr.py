@@ -43,6 +43,4 @@ print('start saving')
 torch.save(features, 'features.pt')
 print('finish saving')
 
-node_idx, _ = pd.factorize(addr_dict['from_addr'])
-
 print(features)

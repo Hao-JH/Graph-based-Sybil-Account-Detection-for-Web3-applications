@@ -19,12 +19,12 @@ Data columns (total 24 columns):
  0   from_addr               1476197 non-null  object
  1   all_hash_cnt            1476197 non-null  int64
  2   all_date_cnt            1476197 non-null  int64
- 3   all_method_cnt          1476197 non-null  int64
- 4   all_to_addr_cnt         1476197 non-null  int64
+ 3   all_method_cnt          1476197 non-null  int64 //with which contract
+ 4   all_to_addr_cnt         1476197 non-null  int64 // num of contract
  5   all_min_dt              1476197 non-null  object
  6   all_max_dt              1476197 non-null  object
- 7   sum_actual_fee          1476197 non-null  float64
- 8   first_nonce             1336436 non-null  float64
+ 7   sum_actual_fee          1476197 non-null  float64 // gas fee
+ 8   first_nonce             1336436 non-null  float64 //byl
  9   first_block_date        1336436 non-null  object
  10  first_transaction_hash  1336436 non-null  object
  11  first_calldata          1336436 non-null  object

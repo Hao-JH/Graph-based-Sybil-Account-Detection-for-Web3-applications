@@ -2,6 +2,7 @@ import torch
 import os
 from torch_geometric.nn import GATConv
 from torch_geometric.data import Data
+from  model.gat import GATModel
 
 
 current_folder = os.path.dirname(os.path.abspath(__file__))
@@ -24,9 +25,14 @@ model1 = GATConv(in_channels=in_channels,hidden_channels=hidden_channels,num_lay
 
 model2 = GATConv(in_channels=in_channels,hidden_channels=hidden_channels,num_layers=1,out_channels=out_channels,edge_dim=edge_dim)
 
+model3 = GATModel(in_channels=in_channels,hidden_channels=hidden_channels,num_layers=1,out_channels=out_channels,edge_dim=edge_dim)
+
 out1 = model1(node_features, edge_index)
 
 out2 = model2(node_features,edge_index,edge_features)
 
+out3 = model3(node_features,edge_index,edge_features)
+
 print(out1.shape)
 print(out2.shape)
+print(out3.shape)

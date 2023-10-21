@@ -15,11 +15,11 @@ Data columns (total 7 columns):
 ---  ------            --------------    -----  
  0   origin_from_addr  1416170 non-null  object 
  1   to_addr           1416170 non-null  object 
- 2   min_token_count   1416170 non-null  float64
+ 2   min_token_count   1416170 non-null  float64 最低一笔消费
  3   max_token_count   1416170 non-null  float64
  4   avg_token_count   1416170 non-null  float64
- 5   hash_cnt          1416170 non-null  int64  
- 6   dt_cnt            1416170 non-null  int64  
+ 5   hash_cnt          1416170 non-null  int64  交易次数
+ 6   dt_cnt            1416170 non-null  int64  交易天数
 dtypes: float64(3), int64(2), object(2)
 memory usage: 75.6+ MB
 None
@@ -30,4 +30,8 @@ max_token_count                                                 0.255
 avg_token_count                                                 0.255
 hash_cnt                                                            1
 dt_cnt                                                              1
+'''
+
+'''
+
 '''
