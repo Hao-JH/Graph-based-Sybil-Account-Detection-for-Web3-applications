@@ -26,3 +26,5 @@ data/connext_labs_data/eth/data_action_feat.csv
 data/connext_labs_data/op/data_action_feat.csv
 data/starknet_label/starknet_addr_score_label.csv
 data/starknet_label/starknet_addr_score_label_dict.xlsx
+load_data/neg_pairs.csv
+load_data/pos_pairs.csv

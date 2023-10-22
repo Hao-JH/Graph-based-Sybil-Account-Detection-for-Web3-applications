@@ -5,10 +5,10 @@ current_folder = os.path.dirname(os.path.abspath(__file__))
 print(current_folder)
 os.chdir(current_folder)
 
-addr_dict = pd.read_csv('starknet_label/starknet_addr_score_label.csv')
-print(addr_dict.info())
-print(addr_dict.iloc[0])
-print(addr_dict.iloc[1])
+label_dict = pd.read_csv('starknet_label/starknet_addr_score_label.csv')
+print(label_dict.info())
+print(label_dict.iloc[0])
+print(label_dict.iloc[1])
 
 '''
 RangeIndex: 1476252 entries, 0 to 1476251

@@ -3,6 +3,7 @@ import os
 from torch_geometric.nn import GATConv
 from torch_geometric.data import Data
 from  model.gat import GATModel
+from torch import nn
 
 
 current_folder = os.path.dirname(os.path.abspath(__file__))
@@ -36,3 +37,5 @@ out3 = model3(node_features,edge_index,edge_features)
 print(out1.shape)
 print(out2.shape)
 print(out3.shape)
+
+loss = nn.MSELoss()
