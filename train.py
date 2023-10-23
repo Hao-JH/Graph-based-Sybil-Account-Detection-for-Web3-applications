@@ -7,6 +7,8 @@ from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
 from tqdm import tqdm
+import torch.nn.functional as F
+
 current_folder = os.path.dirname(os.path.abspath(__file__))
 print(current_folder)
 os.chdir(current_folder)
@@ -37,10 +39,11 @@ pos_pairs = pos_pairs.to(device)
 neg_pairs = neg_pairs.to(device)
 
 out = model(node_features,edge_index,edge_features)
-
+#state_dict = torch.load('model_params.pth')
+#model.load_state_dict(state_dict)
 print(out.shape)
 
-num_epochs = 2
+num_epochs = 3
 batch_size = 128
 k =2
 
@@ -57,14 +60,14 @@ for epoch in range(num_epochs):
             node1,node2 =batch
             optimizer.zero_grad()
             out = model(node_features, edge_index, edge_features)
-            pos_loss = torch.mean(torch.cosine_similarity(out[node1], out[node2]))
+            pos_loss = torch.mean(F.sigmoid(torch.cosine_similarity(out[node1], out[node2])))
             neg_loss = 0
             for i in range(k):
                 neg_loss += torch.mean(
-                    torch.cosine_similarity(
+                    F.sigmoid(torch.cosine_similarity(
                         out[node1], 
                         out[torch.randint(0, node_features.shape[0], size=node1.shape)]
-                    ))
+                    )))
             loss = -1 * (pos_loss - neg_loss)
             loss.backward()
             optimizer.step()
