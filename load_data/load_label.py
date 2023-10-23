@@ -27,16 +27,16 @@ pos_pairs = pos_pairs.groupby('cluster_id_encoded')['node1'].apply(list).reset_i
 pos_pairs['pair'] = pos_pairs['node1'].apply(lambda x: list(itertools.combinations(x, 2)))
 pos_pairs = pos_pairs.explode('pair')
 pos_pairs[['node1', 'node2']] = pd.DataFrame(pos_pairs['pair'].tolist(), index=pos_pairs.index)
-pos_pairs = pos_pairs.drop(['node1'], axis=1)
+pos_pairs = pos_pairs.drop(['pair'], axis=1)
 
 # 生成负例对
-k = 1
-neg_pairs = label_dict[label_dict['cluster_id_encoded'].notnull()]
-neg_pairs = neg_pairs.groupby('cluster_id_encoded')['node1'].apply(list).reset_index()
-neg_pairs = neg_pairs.sample(frac=k, replace=True)
-neg_pairs['node1'] = neg_pairs['node1'].apply(lambda x: np.random.choice(x, size=2, replace=True))
-neg_pairs[['node1', 'node2']] = pd.DataFrame(neg_pairs['node1'].tolist(), index=neg_pairs.index)
-neg_pairs = neg_pairs.drop(['node1'], axis=1)
+k = 2
+neg_pairs = pd.DataFrame(columns=pos_pairs.columns)
+
+for _ in range(k):
+    neg_pairs_subset = pos_pairs.copy()
+    neg_pairs_subset['node2'] = np.random.randint(len(from_addr_dict), size=len(neg_pairs_subset)).astype(int)
+    neg_pairs = pd.concat([neg_pairs, neg_pairs_subset], ignore_index=True)
 
 print("正例对数量：", len(pos_pairs))
 print("负例对数量：", len(neg_pairs))
