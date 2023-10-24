@@ -43,8 +43,8 @@ out = model(node_features,edge_index,edge_features)
 #model.load_state_dict(state_dict)
 print(out.shape)
 
-num_epochs = 3
-batch_size = 128
+num_epochs = 2
+batch_size = 256
 k =2
 
 dataset = TensorDataset(pos_pairs[:,0],pos_pairs[:,1])
