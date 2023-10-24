@@ -24,8 +24,9 @@ print(label_dict.head())
 
 pos_pairs = label_dict[(label_dict['label'] == 1) & (label_dict['cluster_id_encoded'].notnull())]
 pos_pairs = pos_pairs.groupby('cluster_id_encoded')['node1'].apply(list).reset_index()
-pos_pairs['pair'] = pos_pairs['node1'].apply(lambda x: list(itertools.combinations(x, 2)))
-split_ratio = 0.3
+# pos_pairs['pair'] = pos_pairs['node1'].apply(lambda x: list(itertools.combinations(x, 2)))
+pos_pairs['pair'] = pos_pairs['node1'].apply(lambda x: list(zip(x, x[1:] + [x[0]])))
+split_ratio = 0.7
 split_point = int(len(pos_pairs) * split_ratio)
 train_pos_pairs = pos_pairs[:split_point]
 test_pos_pairs = pos_pairs[split_point:]
