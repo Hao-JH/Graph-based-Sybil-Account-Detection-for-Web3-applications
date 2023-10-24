@@ -54,7 +54,7 @@ out = model(node_features,edge_index)
 print(out.shape)
 
 num_epochs = 10
-batch_size = 64
+batch_size = 128
 k = 5
 
 dataset = TensorDataset(train_pos_pairs[:,0],train_pos_pairs[:,1])
