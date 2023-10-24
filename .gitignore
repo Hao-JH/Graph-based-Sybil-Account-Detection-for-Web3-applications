@@ -30,3 +30,7 @@ load_data/neg_pairs.csv
 load_data/pos_pairs.csv
 load_data/pos_pairs.pt
 load_data/neg_pairs.pt
+load_data/train_pos_pairs.csv
+load_data/test_pos_pairs.pt
+load_data/train_pos_pairs.pt
+load_data/test_pos_pairs.csv
