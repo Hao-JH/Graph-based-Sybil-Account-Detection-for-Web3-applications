@@ -20,15 +20,22 @@ class GCNConvModel(nn.Module):
     def __init__(self, in_channels,out_channels, weight_decay=1e-4):
         super(GCNConvModel, self).__init__()
         self.fc = nn.Sequential(
-            nn.Linear(in_channels, 2*in_channels),
-            nn.ReLU()
+            nn.Linear(in_channels, in_channels),
+            nn.ReLU(),
+            nn.Linear(in_channels, 2*in_channels)
         )
         self.conv = GCNConv(in_channels=2*in_channels, out_channels=out_channels)
+        self.relu1 = nn.ReLU()
+        self.conv2 = GCNConv(in_channels=out_channels, out_channels=out_channels)
+        self.sig1 =nn.Sigmoid()
         self.weight_decay = weight_decay
 
     def forward(self, node_features, edge_index):
         node_features = self.fc(node_features)
         out = self.conv(node_features, edge_index)
+        out = self.relu1(out)
+        out = self.conv2(out, edge_index)
+        out = self.sig1(out)
         return out
     
     def l2_regularization(self,device):

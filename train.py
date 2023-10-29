@@ -49,11 +49,11 @@ train_pos_pairs = train_pos_pairs.to(device)
 test_pos_pairs = test_pos_pairs.to(device)
 
 out = model(node_features,edge_index)
-#state_dict = torch.load('model_params.pth')
-#model.load_state_dict(state_dict)
+# state_dict = torch.load('model_params.pth')
+# model.load_state_dict(state_dict)
 print(out.shape)
 
-num_epochs = 40
+num_epochs = 10
 batch_size = 64
 k = 5
 
@@ -62,7 +62,7 @@ dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 # testdataset = TensorDataset(test_pos_pairs[:,0],test_pos_pairs[:,1])
 # testdataloader = DataLoader(testdataset, batch_size=batch_size, shuffle=False)
 
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 
 def compute_loss(model, node_features, edge_index, edge_features, node1, node2, k):
     out = model(node_features, edge_index)
