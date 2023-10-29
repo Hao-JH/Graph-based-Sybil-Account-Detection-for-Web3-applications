@@ -53,8 +53,8 @@ out = model(node_features,edge_index)
 #model.load_state_dict(state_dict)
 print(out.shape)
 
-num_epochs = 10
-batch_size = 128
+num_epochs = 40
+batch_size = 64
 k = 5
 
 dataset = TensorDataset(train_pos_pairs[:,0],train_pos_pairs[:,1])
@@ -97,6 +97,8 @@ for epoch in range(num_epochs):
         #         )))
         # loss = -1 * (pos_loss - neg_loss)
         loss = compute_loss(model,node_features,edge_index,edge_features,node1,node2,k)
+        l2_reg = model.l2_regularization(device=device)
+        loss = loss + l2_reg
         loss.backward()
         optimizer.step()
         train_loss += loss.item()
@@ -117,9 +119,10 @@ plt.plot(test_losses, label='test loss')
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.legend()
+plt.savefig('loss_curve.png')
 plt.show()
 
-plt.savefig('loss_curve.png')
+
 
 torch.save(model.state_dict(), 'model_params.pth')
 

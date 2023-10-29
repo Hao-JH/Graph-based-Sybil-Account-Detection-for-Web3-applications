@@ -1,6 +1,6 @@
 import torch.nn as nn
 from torch_geometric.nn import GATConv,SAGEConv,GCNConv
-
+import torch
 
 class GATModel(nn.Module):
     def __init__(self, in_channels, hidden_channels, num_layers, out_channels, edge_dim):
@@ -17,15 +17,23 @@ class GATModel(nn.Module):
         return out
     
 class GCNConvModel(nn.Module):
-    def __init__(self, in_channels,out_channels):
+    def __init__(self, in_channels,out_channels, weight_decay=1e-4):
         super(GCNConvModel, self).__init__()
         self.fc = nn.Sequential(
             nn.Linear(in_channels, 2*in_channels),
             nn.ReLU()
         )
         self.conv = GCNConv(in_channels=2*in_channels, out_channels=out_channels)
+        self.weight_decay = weight_decay
 
     def forward(self, node_features, edge_index):
         node_features = self.fc(node_features)
         out = self.conv(node_features, edge_index)
         return out
+    
+    def l2_regularization(self,device):
+        l2_reg = torch.tensor(0., device=device)
+        for name, param in self.named_parameters():
+            if 'weight' in name:
+                l2_reg += torch.norm(param)
+        return self.weight_decay * l2_reg
