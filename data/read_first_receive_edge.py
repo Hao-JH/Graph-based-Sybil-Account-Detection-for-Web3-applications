@@ -17,10 +17,10 @@ Data columns (total 8 columns):
  1   to_addr            1476001 non-null  object
  2   txn_hash           1476001 non-null  object
  3   block_number       1476001 non-null  int64
- 4   token_count        1476001 non-null  float64
- 5   dt                 1476001 non-null  int64
- 6   transaction_index  1476001 non-null  int64
- 7   rank1              1476001 non-null  int64
+ 4   token_count        1476001 non-null  float64 ether
+ 5   dt                 1476001 non-null  int64 datetime
+ 6   transaction_index  1476001 non-null  int64 
+ 7   rank1              1476001 non-null  int64 
 dtypes: float64(1), int64(4), object(3)
 memory usage: 90.1+ MB
 None

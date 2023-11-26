@@ -17,30 +17,34 @@ class GATModel(nn.Module):
         return out
     
 class GCNConvModel(nn.Module):
-    def __init__(self, in_channels,out_channels, weight_decay=1e-4):
+    def __init__(self, in_channels,out_channels,dropout_rate=0.1):
         super(GCNConvModel, self).__init__()
         self.fc = nn.Sequential(
-            nn.Linear(in_channels, in_channels),
+            nn.Linear(in_channels, 32),
             nn.ReLU(),
-            nn.Linear(in_channels, 2*in_channels)
+            nn.Linear(32,64)
         )
-        self.conv = GCNConv(in_channels=2*in_channels, out_channels=out_channels)
-        self.relu1 = nn.ReLU()
-        self.conv2 = GCNConv(in_channels=out_channels, out_channels=out_channels)
-        self.sig1 =nn.Sigmoid()
-        self.weight_decay = weight_decay
+        self.conv1 = GCNConv(in_channels=64, out_channels=64)
+        self.relu1 = nn.LeakyReLU(negative_slope=0.2)
+        self.conv2 = GCNConv(in_channels=64, out_channels=64)
+        self.relu2 = nn.LeakyReLU(negative_slope=0.2)
+        self.conv3 = GCNConv(in_channels=64, out_channels=64)
+        self.relu3 = nn.LeakyReLU(negative_slope=0.2)
+        self.conv4 = GCNConv(in_channels=64, out_channels=64)
+        self.final_linear = nn.Linear(64,out_channels)
+        self.dropout = nn.Dropout(p=dropout_rate)
 
     def forward(self, node_features, edge_index):
         node_features = self.fc(node_features)
-        out = self.conv(node_features, edge_index)
-        out = self.relu1(out)
-        out = self.conv2(out, edge_index)
-        out = self.sig1(out)
-        return out
+        out1 = self.conv1(node_features, edge_index)
+        out1 = self.relu1(out1)
+        out2 = self.conv2(out1, edge_index)
+        out2 = self.relu2(out2)
+        out2 = out2 + out1
+        out3 = self.conv3(out2, edge_index)
+        out3 = self.relu3(out3)
+        out4 = self.conv4(out3, edge_index)
+        out4 = out4 + out2
+        out4 = self.final_linear(out4)
+        return out4
     
-    def l2_regularization(self,device):
-        l2_reg = torch.tensor(0., device=device)
-        for name, param in self.named_parameters():
-            if 'weight' in name:
-                l2_reg += torch.norm(param)
-        return self.weight_decay * l2_reg
