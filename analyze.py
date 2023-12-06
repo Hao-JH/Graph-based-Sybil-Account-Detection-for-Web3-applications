@@ -4,7 +4,7 @@ import pandas as pd
 
 cluster_id = pd.read_csv('load_data\cluster_id.csv')
 labels = np.array(cluster_id)
-cluster_result = pd.read_csv('clustered_result.csv')
+cluster_result = pd.read_csv('clustered_result_10eps_min20.csv')
 result = np.array(cluster_result)
 
 tp = np.sum((labels != -1) & (result != -1))   

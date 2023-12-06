@@ -55,24 +55,10 @@ cluster_id = pd.read_csv('load_data\cluster_id.csv')
 labels = np.array(cluster_id)
 
 
-# 根据标签找到合适的eps值
-# eps_values = []
-# for label in tqdm(np.unique(labels)):
-#     if label == -1:
-#         continue  # 跳过离散点
-#     label_features = out[np.where(labels == label)[0]]
-#     # 计算每个簇内样本之间的距离
-#     distances = torch.cdist(label_features, label_features)
-#     # 计算每个簇内样本之间的平均距离
-#     mean_distance = torch.mean(distances).item()
-#     eps_values.append(mean_distance)
-
-# # 使用均值作为eps值
-# eps = np.mean(eps_values)
 # 0.018972053269412682
 eps = 0.018972053269412682
 
-dbscan = DBSCAN(eps=eps*10, min_samples=5)
+dbscan = DBSCAN(eps=eps*10, min_samples=20)
 
 clustered_labels = dbscan.fit_predict(node_features.cpu().numpy())
 
@@ -81,7 +67,7 @@ print(clustered_labels)
 # 创建一个包含标签的DataFrame
 df = pd.DataFrame({'Cluster_Labels': clustered_labels})
 
-# 将DataFrame保存为CSV文件
-df.to_csv('clustered_result.csv', index=False)
+# 将DataFrame保存为CSV文件default min samples = 5 default eps = 5
+df.to_csv('clustered_result_10eps_min20.csv', index=False)
 
 #####problem in dbscan
